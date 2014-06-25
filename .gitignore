@@ -1,8 +1,9 @@
 .project
-/.settings/
-/ebin/
-/target/
 readme
+/.settings
+/ebin
+/target/
+
 
 
 /*/*.beam

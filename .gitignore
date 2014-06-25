@@ -1,10 +1,7 @@
 .project
 readme
-/.settings
-/ebin/
-/target/
-
+/common/.settings
+/common/ebin
 
 
 /*/*.beam
-/common/ebin

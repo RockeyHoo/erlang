@@ -12,7 +12,7 @@
 -import(lists, [map/2, member/2, foreach/2]).
 -import(lib_chan_mm, [send/2, close/1]).
 
-%%----------------------------------------------------------------------
+%% ---
 %% Server code
 
 start_server() ->

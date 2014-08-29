@@ -1,11 +1,10 @@
 %% ---
-%%  Excerpted from "Programming Erlang",
-%%  published by The Pragmatic Bookshelf.
-%%  Copyrights apply to this code. It may not be used to create training material, 
-%%  courses, books, articles, and the like. Contact us if you are in doubt.
-%%  We make no guarantees that this code is fit for any purpose. 
-%%  Visit http://www.pragmaticprogrammer.com/titles/jaerlang for more book information.
+%%  服务器程序，可以通过回调模块进行定制
+%%  定义了回调函数常用的接口
+%%  抽象与实现分离
+%%  此module 类似接口，定义了客户端的方法
 %%---
+
 -module(server1).
 -export([start/2, rpc/2]).
 

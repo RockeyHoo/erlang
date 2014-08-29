@@ -1,11 +1,8 @@
 %% ---
-%%  Excerpted from "Programming Erlang",
-%%  published by The Pragmatic Bookshelf.
-%%  Copyrights apply to this code. It may not be used to create training material, 
-%%  courses, books, articles, and the like. Contact us if you are in doubt.
-%%  We make no guarantees that this code is fit for any purpose. 
-%%  Visit http://www.pragmaticprogrammer.com/titles/jaerlang for more book information.
-%%---
+%% 支持事务的服务器程序
+%%  当请求发生异常，会让客户端代码异常退出
+%%
+%% ---
 -module(server2).
 -export([start/2, rpc/2]).
 
@@ -37,6 +34,4 @@ loop(Name, Mod, OldState) ->
     end.
 
 log_the_error(Name, Request, Why) ->
-    io:format("Server ~p request ~p ~n"
-	      "caused exception ~p~n", 
-	      [Name, Request, Why]).
+    io:format("Server ~p request ~p ~n""caused exception ~p~n", [Name, Request, Why]).

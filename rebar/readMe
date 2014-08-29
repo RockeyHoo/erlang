@@ -1,0 +1,103 @@
+#####################################################################
+#                                                                   #            
+#                        rebar说明文档                                                                #                
+#                                                                   #               
+#####################################################################
+1. bootstrap.bat 引导程序
+        通过escript.exe运行bootstap,编译程序
+        生成rebatr,rebar.cmd
+        
+2. 使用rebar构建项目
+    2.1将rebar,rebar.cmd 复制到指定文件夹
+       
+    2.2 然后运行 > rebar create-app appid=myapp
+         这条指令的结果会产生一个子文件夹“src”，src包含三个文件夹：
+    •myapp.app.src：OTP应用程序的资源文件
+    •myapp_app.erl：一个OTP应用程序的Application behaviour
+    •myapp_sup.erl: 一个OTP应用程序的Supervisor behaviour
+    
+    2.3 编译
+    > rebar compile
+        执行完成后，会出现一个新的文件夹ebin，在ebin文件夹下，会出现与src文件夹下源文件一一对应的beam文件。
+        同时，rebar会根据myapp.app.src动态生成一个合适OTP项目资源文件。
+
+    2.4 清理
+    > rebar clean 
+        执行完成后，会清理ebin，文件夹下的文件
+          
+    2.5 测试
+    > rebar compile eunit      
+          
+3. 模板支持
+        模板文件(mytemplate.template)放到.rebar/templates下，然后通过下列命令使用：
+    > rebar create template=mytemplate 
+
+4. Rebar和OTP约定
+    Rebar按照OTP的约定组织项目，OTP约定可以参考OTP设计原则。应用程序的目录需要下列子文件夹：
+    •src
+    •ebin
+    •priv
+    •include
+        应用程序的资源文件（*.app）应该放到ebin文件夹下。除了上面文件夹，rebar还还支持下列的原则：
+    •test：包含EUnit测试脚本的文件夹
+    •c_src:包含c语言写的port drivers
+
+5. 程序主入口
+    rebar:main(["compile", "escriptize"] ++ Args),
+    
+    application:load(rebar) %会加载rebar.app文件
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

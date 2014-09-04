@@ -47,7 +47,8 @@
     
     application:load(rebar) %会加载rebar.app文件
 
-
+    {module, Module} = code:ensure_loaded(Module), -- 判断模块是否加载
+    case erlang:function_exported(Module, Command, 2) of -- 判断该模块是否有指定的命令
 
 
 

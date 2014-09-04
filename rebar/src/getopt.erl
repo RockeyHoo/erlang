@@ -70,7 +70,7 @@ parse(OptSpecList, CmdLine) when is_list(CmdLine) ->
                    is_integer(hd(CmdLine)) -> tokenize(CmdLine);
                    true                    -> CmdLine
                end,
-        parse(OptSpecList, [], [], 0, Args)
+        parse(OptSpecList, [], [], 0, Args) %["compile", "escriptize"]
     catch
         throw: {error, {_Reason, _Data}} = Error ->
             Error

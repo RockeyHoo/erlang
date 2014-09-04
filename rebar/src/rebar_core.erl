@@ -79,7 +79,7 @@ process_commands([Command | Rest], ParentConfig) ->
     %% Reset skip dirs
     ParentConfig1 = rebar_config:reset_skip_dirs(ParentConfig),
     Operations = get_operations(ParentConfig1),
-
+    
     ParentConfig4 =
         try
             %% Convert the code path so that all the entries are
@@ -137,6 +137,7 @@ process_dir(Dir, ParentConfig, Command, DirSet) ->
             %% CWD to see if it's a fit -- if it is, use that set of modules
             %% to process this dir.
             {ok, AvailModuleSets} = application:get_env(rebar, modules),
+           
             ModuleSet = choose_module_set(AvailModuleSets, Dir),
             skip_or_process_dir(ModuleSet, Config, CurrentCodePath,
                                 Dir, Command, DirSet)
@@ -189,7 +190,7 @@ process_dir1(Dir, Command, DirSet, Config, CurrentCodePath,
     {ok, AnyDirModules} = application:get_env(rebar, any_dir_modules),
 
     Modules = AnyDirModules ++ DirModules,
-
+    
     %% Invoke 'preprocess' on the modules -- this yields a list of other
     %% directories that should be processed _before_ the current one.
     {Config1, Predirs} = acc_modules(Modules, preprocess, Config0,
@@ -230,7 +231,7 @@ process_dir1(Dir, Command, DirSet, Config, CurrentCodePath,
                       %% Execute any before_command plugins on this directory
                       Config5 = execute_pre(Command, PluginModules,
                                             Config4, ModuleSetFile, Env),
-
+                      
                       %% Execute the current command on this directory
                       Config6 = execute(Command, Modules ++ PluginModules,
                                         Config5, ModuleSetFile, Env),

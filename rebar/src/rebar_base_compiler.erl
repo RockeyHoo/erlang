@@ -36,7 +36,6 @@
 %% ===================================================================
 
 run(Config, FirstFiles, RestFiles, CompileFn) ->
-    ?CONSOLE("rebar_base_complier.run , ~p~n",[abc]),
     %% Compile the first files in sequence
     compile_each(FirstFiles, Config, CompileFn),
 

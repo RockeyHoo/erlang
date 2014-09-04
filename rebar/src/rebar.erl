@@ -94,20 +94,22 @@ run(["version"]) ->
     %% Display vsn and build time info
     version();
 run(RawArgs) ->
-    %% 加载应用配置
+    %% 加载应用配置 rebar.app
     ok = load_rebar_app(),
     %% 解析命令行参数 返回{[],RawArgs}
     Args = parse_args(RawArgs),
     
     %% 初始化配置
-    %%
     BaseConfig = init_config(Args),
+    
+    %% 保存选项
     {BaseConfig1, Cmds} = save_options(BaseConfig, Args),
 
     case rebar_config:get_xconf(BaseConfig1, enable_profiling, false) of
         true ->
             io:format("Profiling!\n"),
             try
+                %% 执行命令
                 fprof:apply(fun run_aux/2, [BaseConfig1, Cmds])
             after
                 ok = fprof:profile(),
@@ -124,7 +126,7 @@ load_rebar_app() ->
 
 init_config({Options, _NonOptArgs}) ->
     %% If $HOME/.rebar/config exists load and use as global config
-    %% 获取当前配置路径
+    %% 获取当前配置路径config.dir
     GlobalConfigFile = filename:join([os:getenv("HOME"), ".rebar", "config"]), 
     GlobalConfig = case filelib:is_regular(GlobalConfigFile) of
                        true ->
@@ -134,7 +136,6 @@ init_config({Options, _NonOptArgs}) ->
                        false ->
                            rebar_config:new()
                    end,
-
     %% Set the rebar config to use
     %% 
     GlobalConfig1 = case proplists:get_value(config, Options) of
@@ -145,11 +146,11 @@ init_config({Options, _NonOptArgs}) ->
                     end,
 
     GlobalConfig2 = set_log_level(GlobalConfig1, Options),
-    io:format("GlobalConfig2 : ~p\n", [GlobalConfig2]),
     
     %% Initialize logging system
     ok = rebar_log:init(GlobalConfig2),
 
+    %% 初始化全局信息
     BaseConfig = rebar_config:base_config(GlobalConfig2),
 
     %% Keep track of how many operations we do, so we can detect bad commands
@@ -223,6 +224,7 @@ help() ->
 %%
 parse_args(RawArgs) ->
     %% Parse getopt options %% {Name, ShortOpt, LongOpt, ArgSpec, HelpMsg}
+    %% 显示帮助信息
     OptSpecList = option_spec_list(),
     case getopt:parse(OptSpecList, RawArgs) of
         {ok, Args} ->
